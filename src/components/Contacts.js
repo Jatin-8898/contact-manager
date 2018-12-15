@@ -32,6 +32,19 @@ class Contacts extends Component {
         ]
     }
  
+    deleteContact  = (id) => {
+        //console.log("DELETE WAS HANDLED");
+        //console.log(id);
+
+        const  {contacts} = this.state;//since obj is immutable we create newContacts
+        const newContacts = contacts.filter(contact => contact.id !== id);//Remove the element if it has the id we want to delete
+
+        this.setState({
+            contacts: newContacts
+        })
+
+    }
+
     render() {
 
         const { contacts }  = this.state;
@@ -42,10 +55,11 @@ class Contacts extends Component {
              {contacts.map(contact => (
                
                <Contact 
-               key={contact.id}
-               contact={contact}
+               key = {contact.id}
+               contact = {contact}
+               deleteClickHandler = {this.deleteContact.bind(this,contact.id)}
                /* 
-               Instead of passing every details pass whole
+               Instead of passing every details pass whole contact
                name={contact.name}
                email={contact.email}
                phone={contact.phone}
